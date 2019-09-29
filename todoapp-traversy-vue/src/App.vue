@@ -31,7 +31,14 @@ export default {
       });
     },
     addTodo(newTodo) {
-      this.todos = [...this.todos, newTodo];
+      //use destructuring to get title & completed from task
+      const { title, completed } = newTodo
+
+      axios.post('https://jsonplaceholder.typicode.com/todos', { title, completed })
+      .then(res => this.todos = [...this.todos, res.data])
+      .catch(err => console.log(err))
+
+      // this.todos = [...this.todos, newTodo];
     },
     //runs right away. like compenentmounted
     created() {
