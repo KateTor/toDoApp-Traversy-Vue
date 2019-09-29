@@ -10,6 +10,7 @@
 import Header from './components/layout/Header';
 import Todos from './components/Todos';
 import Addtodo from './components/Addtodo';
+import axios from 'axios';
 
 export default {
   name: 'app',
@@ -20,23 +21,7 @@ export default {
   },
   data() {
     return {
-      todos: [
-        {
-          id: 1,
-          title: "Feed Dogs",
-          completed: false
-        },
-        {
-          id: 2,
-          title: "Walk Dogs",
-          completed: true
-        },
-        {
-          id: 3,
-          title: "Treat Dogs",
-          completed: false
-        }
-      ]
+      todos: []
     }
   },
   methods: {
@@ -47,6 +32,13 @@ export default {
     },
     addTodo(newTodo) {
       this.todos = [...this.todos, newTodo];
+    },
+    //runs right away. like compenentmounted
+    created() {
+      //axios is a http library to make requests..can use fetch api
+      axios.get('https://jsonplaceholder.typicode.com/todos?_limit=5')
+      .then(res => this.todos = res.data)
+      .catch(err => console.log(err))
     }
   }
 }
