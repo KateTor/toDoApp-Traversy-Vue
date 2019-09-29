@@ -26,9 +26,14 @@ export default {
   },
   methods: {
     deleteTodo(id) {
-      this.todos = this.todos.filter(todo => {
-        todo.id !== id
-      });
+      axios.delete(`https://jsonplaceholder.typicode.com/todos/${id}`)
+      .then(res => this.todos = this.todos.filter(todo => {todo.id !== id }))
+      .catch(err => console.log(err))
+    }
+
+      // this.todos = this.todos.filter(todo => {
+      //   todo.id !== id
+      // });
     },
     addTodo(newTodo) {
       //use destructuring to get title & completed from task
@@ -48,7 +53,7 @@ export default {
       .catch(err => console.log(err))
     }
   }
-}
+
 </script>
 
 
